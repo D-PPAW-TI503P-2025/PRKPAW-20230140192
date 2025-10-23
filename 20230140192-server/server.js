@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 5000;
+const PORT = 3001;
 const morgan = require("morgan");
 
 const presensiRoutes = require('./routes/presensi');

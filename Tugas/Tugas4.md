@@ -1,0 +1,5 @@
+![Tampilan Check In](ss/cekin.png)
+![Tampilan Database setelah Check In](ss/database%20setelah%20cekin.png)
+![Tampilan Check Out](ss/cekot.png)
+![Tampilan Database setelah Check Out](ss/database%20setelah%20cekot.png)
+![Tampilan Endpoint Report](ss/reports.png)
