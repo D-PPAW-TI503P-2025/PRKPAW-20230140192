@@ -1,0 +1,5 @@
+![Endpoint update data presensi](<ss/paw5 edit presensi.png>)
+![Endpoint update jika format tanggal yang diisi tidak valid](<ss/paw5 edit tanggal invalid.png>)
+![Endpoint Delete Data](<ss/paw5 delete data.png>)
+![Endpoint search berdasarkan nama](<ss/paw5 search nama.png>)
+![Endpoint search berdasarkan tanggal](<ss/paw5 search tanggal.png>)
