@@ -1,4 +1,4 @@
-![Endpoint presensi/check-in dengan menggunakan bearer token dan body latitude, longitude](<ss/endpointcheckin.png)
+![Endpoint presensi/check-in dengan menggunakan bearer token dan body latitude, longitude](<ss/endpointcekin.png>)
 ![Check-in berhasil](<ss/checkinberhasil.png>)
 ![Check-out berhasil](<ss/checkoutberhasil.png>)
 ![Tampilan halaman report yg berisi data presensi dari semua user](<ss/halamanreport.png>)
