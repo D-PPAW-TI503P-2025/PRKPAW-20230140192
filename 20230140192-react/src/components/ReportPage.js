@@ -8,6 +8,9 @@ function ReportPage() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
+  // state untuk modal foto
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const fetchReports = async (query) => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -17,9 +20,7 @@ function ReportPage() {
 
     try {
       const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       };
 
       const baseUrl = "http://localhost:3001/api/reports/daily";
@@ -30,15 +31,14 @@ function ReportPage() {
       setError(null);
     } catch (err) {
       setReports([]);
-      setError(
-        err.response ? err.response.data.message : "Gagal mengambil data"
-      );
+      setError(err.response ? err.response.data.message : "Gagal mengambil data");
     }
   };
 
   useEffect(() => {
     fetchReports("");
   }, [navigate]);
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     fetchReports(searchTerm);
@@ -75,23 +75,19 @@ function ReportPage() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-In</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-Out</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Latitude</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Longitude</th>
+
+                {/* Kolom baru */}
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Nama
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Check-In
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Check-Out
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Latitude
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Longitude
+                  Bukti Foto
                 </th>
               </tr>
             </thead>
+
             <tbody className="bg-white divide-y divide-gray-200">
               {reports.length > 0 ? (
                 reports.map((presensi) => (
@@ -99,11 +95,13 @@ function ReportPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {presensi.user ? presensi.user.nama : "N/A"}
                     </td>
+
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {new Date(presensi.checkIn).toLocaleString("id-ID", {
                         timeZone: "Asia/Jakarta",
                       })}
                     </td>
+
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {presensi.checkOut
                         ? new Date(presensi.checkOut).toLocaleString("id-ID", {
@@ -111,26 +109,55 @@ function ReportPage() {
                           })
                         : "Belum Check-Out"}
                     </td>
+
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {presensi.latitude || "N/A"}
                     </td>
+
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {presensi.longitude || "N/A"}
+                    </td>
+
+                    {/* THUMBNAIL BUKTI FOTO */}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      {presensi.buktiFoto ? (
+                        <img
+                          src={`http://localhost:3001/${presensi.buktiFoto}`}
+                          alt="bukti presensi"
+                          onClick={() =>
+                            setSelectedImage(`http://localhost:3001/${presensi.buktiFoto}`)
+                          }
+                          className="w-16 h-16 object-cover rounded cursor-pointer border"
+                        />
+                      ) : (
+                        <span className="text-gray-400">Tidak ada foto</span>
+                      )}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td
-                    colSpan="3"
-                    className="px-6 py-4 text-center text-gray-500"
-                  >
+                  <td colSpan="6" className="px-6 py-4 text-center text-gray-500">
                     Tidak ada data yang ditemukan.
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* MODAL FOTO */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          <img
+            src={selectedImage}
+            alt="Full"
+            className="max-w-3xl max-h-[90vh] rounded-lg shadow-lg"
+          />
         </div>
       )}
     </div>
