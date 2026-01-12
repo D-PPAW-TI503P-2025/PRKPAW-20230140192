@@ -62,9 +62,9 @@ function Navbar() {
             </Link>
 
             <Link
-              to="/presensi"
+              to="/attendance"
               className={`px-6 py-2.5 rounded-full font-medium transition-all ${
-                isActive("/presensi") ? activeClass : inactiveClass
+                isActive("/attendance") ? activeClass : inactiveClass
               }`}
             >
               Presensi
@@ -80,6 +80,15 @@ function Navbar() {
                 Laporan Admin
               </Link>
             )}
+            <Link
+              to="/monitoring"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-6 py-3 rounded-full font-medium ${
+                isActive("/monitoring") ? activeClass : "text-gray-700"
+              }`}
+            >
+              Monitoring Suhu
+            </Link>
           </div>
 
           {/* Desktop User + Logout */}
@@ -139,10 +148,10 @@ function Navbar() {
               Dashboard
             </Link>
             <Link
-              to="/presensi]"
+              to="/attendance"
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-6 py-3 rounded-full font-medium ${
-                isActive("/presensi") ? activeClass : "text-gray-700"
+                isActive("/attendance") ? activeClass : "text-gray-700"
               }`}
             >
               Presensi
@@ -158,6 +167,15 @@ function Navbar() {
                 Laporan Admin
               </Link>
             )}
+            <Link
+              to="/monitoring"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block px-6 py-3 rounded-full font-medium ${
+                isActive("/monitoring") ? activeClass : "text-gray-700"
+              }`}
+            >
+              Monitoring Suhu
+            </Link>
 
             <button
               onClick={handleLogout}
